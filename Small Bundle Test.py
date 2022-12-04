@@ -8,7 +8,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 import tensorflow as tf
 
-counter = 0
+counter = 104014
 
 data_in = "/home/amri123/Desktop/Training Data"
 data_to = "/home/amri123/Desktop/Training Data/Data"
@@ -16,10 +16,10 @@ labels_to = "/home/amri123/Desktop/Training Data/Labels"
 
 start_time = time.time()
 leading_zeros = 7
-total_files = 104014
+total_files = 252702
 one_percent = total_files // 100
 
-for root, dirs, files in os.walk("/home/amri123/Desktop/Training Data/train-clean-360/LibriSpeech/train-clean-360"):
+for root, dirs, files in os.walk("/home/amri123/Desktop/Training Data/train-other-500/LibriSpeech/train-other-500"):
     # makes sure its the appropraite depth, where the files are
     if root.count("/") == 9:
         # makes sure they come in numerical order
