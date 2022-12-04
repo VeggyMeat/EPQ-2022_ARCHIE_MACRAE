@@ -31,7 +31,6 @@ for root, dirs, files in os.walk("/home/amri123/Desktop/Training Data/train-clea
         text_file.close()
         for n, file in enumerate(files):
             if file.endswith(".flac"):
-                counter += 1
                 # moves the file to the right spot
                 shutil.copy(os.path.join(root, file), data_to)
                 # renames the file
@@ -41,6 +40,7 @@ for root, dirs, files in os.walk("/home/amri123/Desktop/Training Data/train-clea
                 label_file = open(os.path.join(labels_to, (leading_zeros - len(str(counter))) * '0' + str(counter) + '.txt'), 'w')
                 label_file.write(' '.join(lines[n].split(' ')[1:]))
                 label_file.close()
+                counter += 1
 
             if counter % one_percent == 0:
                 # prints an estimated time and percentage done message
