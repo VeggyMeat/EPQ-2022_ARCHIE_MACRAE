@@ -7,6 +7,7 @@ from tensorflow import keras
 import tensorflow_io as tfio
 import numpy as np
 import soundfile as sf
+import matplotlib.pyplot as plt
 
 def to_spectogram(data_file_loc):
     # reads the data out 
@@ -35,4 +36,16 @@ def to_spectogram(data_file_loc):
 
     return spectrogram
 
-print(to_spectogram("/home/amri123/Desktop/Training Data/Data/0000000.flac"))
+
+def display_spectrogram(spectrogram):
+    fig = plt.figure(figsize=(8,5))
+    ax = plt.subplot(2, 1, 2)
+    spectrogram = np.array([np.trim_zeros(x) for x in np.transpose(spectrogram)])
+    ax.imshow(spectrogram, vmax=1)
+    ax.axis("off")
+    plt.show()
+
+
+print(spectrogram:=to_spectogram("/home/amri123/Desktop/Training Data/Data/0000000.flac"))
+
+display_spectrogram(spectrogram)
