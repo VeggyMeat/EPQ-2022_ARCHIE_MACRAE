@@ -10,16 +10,16 @@ import tensorflow as tf
 
 counter = 0
 
-data_in = "/home/amri123/Desktop/Training Data"
-data_to = "/home/amri123/Desktop/Training Data/Data"
-labels_to = "/home/amri123/Desktop/Training Data/Labels"
+data_in = "/home/amri123/Desktop/Training Data/"
+data_to = "/home/amri123/Desktop/Training Data/Data/"
+labels_to = "/home/amri123/Desktop/Training Data/Labels/"
 
 start_time = time.time()
 leading_zeros = 7
 total_files = 252702
 one_percent = total_files // 100
 
-for root, dirs, files in os.walk("/home/amri123/Desktop/Training Data/"):
+for root, dirs, files in os.walk(data_in):
     # makes sure its the appropraite depth, where the files are
     if root.count("/") == 9:
         # makes sure they come in numerical order
