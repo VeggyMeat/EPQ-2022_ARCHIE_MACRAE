@@ -49,4 +49,23 @@ def data_to_num(data):
     return [char_map[char] for char in data]
 
 
-print(data_to_num("HELLO '"))
+def label_change_num(file_name):
+    # opens the file
+    file = open(file_name, 'r')
+
+    # reads all the data except the blank line character at the end
+    data = file.read()[:-1]
+    file.close()
+
+    # translates it into a list of numbers
+    numbers = data_to_num(data)
+    numbers = [str(num) for num in numbers]
+
+    # writes the data back as the numbers
+    file = open(file_name, 'w')
+    file.write(' '.join(numbers))
+    file.close()
+    print(' '.join(numbers))
+
+
+label_change_num("/home/amri123/Desktop/Training Data/0000000.txt")

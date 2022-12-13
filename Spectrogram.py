@@ -9,7 +9,7 @@ import numpy as np
 import soundfile as sf
 import matplotlib.pyplot as plt
 
-def to_spectogram(data_file_loc):
+def to_spectrogram(data_file_loc):
     # reads the data out 
     data = tf.io.read_file(data_file_loc)
 
@@ -46,6 +46,24 @@ def display_spectrogram(spectrogram):
     plt.show()
 
 
-print(spectrogram:=to_spectogram("/home/amri123/Desktop/Training Data/Data/0000000.flac"))
+def file_to_spectrogram(file_loc_in, file_loc_out):
+    # gets the spectrogram
+    spectrogram = to_spectrogram(file_loc_in)
 
-display_spectrogram(spectrogram)
+    # converts it to a numpy file
+    numpy_spect = spectrogram.numpy()
+
+    # saves it to the output file
+    np.savetxt(file_loc_out, numpy_spect)
+
+
+def read_spectrogram_file(file_loc):
+    # reads it in as a numpy file
+    numpy_spect = np.loadtxt(file_loc, dtype=np.float32)
+
+    # converts it to a tensorflow tensor
+    return tf.convert_to_tensor(numpy_spect, dtype=tf.float32)
+
+file_to_spectrogram("/home/amri123/Desktop/Training Data/Data/0000000.flac", "/home/amri123/Desktop/0000000.npy")
+
+print(read_spectrogram_file("/home/amri123/Desktop/0000000.npy"))
