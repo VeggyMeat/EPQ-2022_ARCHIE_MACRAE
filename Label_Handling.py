@@ -65,7 +65,13 @@ def label_change_num(file_name):
     file = open(file_name, 'w')
     file.write(' '.join(numbers))
     file.close()
-    print(' '.join(numbers))
+
+
+def read_num_file(file_name):
+    # opens the file
+    file = open(file_name, 'r')
+    data = file.read()
+    print(data)
 
 
 label_change_num("/home/amri123/Desktop/Training Data/0000000.txt")

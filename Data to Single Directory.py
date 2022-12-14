@@ -2,6 +2,7 @@ import numpy as np
 import os
 import shutil
 import time
+from Constants import *
 
 # disables tensorflow debugging information
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
@@ -16,8 +17,8 @@ labels_to = "/home/amri123/Desktop/Training Data/Labels/"
 
 start_time = time.time()
 leading_zeros = 7
-total_files = 252702
 one_percent = total_files // 100
+
 
 for root, dirs, files in os.walk(data_in):
     # makes sure its the appropraite depth, where the files are
