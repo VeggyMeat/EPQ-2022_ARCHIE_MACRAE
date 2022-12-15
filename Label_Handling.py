@@ -8,6 +8,7 @@ import tensorflow_io as tfio
 import numpy as np
 import soundfile as sf
 import matplotlib.pyplot as plt
+import time
 
 labels_dir = "/home/amri123/Desktop/Training Data/Labels/"
 
@@ -42,6 +43,7 @@ chars= "ABCDEFGHIJKLMNOPQRSTUVWXYZ' "
 
 # dictionary of character to number
 char_map = {chars[x]: x + 1 for x in range(len(chars))}
+inv_map = {x + 1: chars[x] for x in range(len(chars))}
 
 
 def data_to_num(data):
@@ -49,7 +51,11 @@ def data_to_num(data):
     return [char_map[char] for char in data]
 
 
-def label_change_num(file_name):
+def num_to_data(num):
+    return [inv_map[char] for char in num]
+
+
+def label_change_num(file_name, file_name_out):
     # opens the file
     file = open(file_name, 'r')
 
@@ -62,7 +68,7 @@ def label_change_num(file_name):
     numbers = [str(num) for num in numbers]
 
     # writes the data back as the numbers
-    file = open(file_name, 'w')
+    file = open(file_name_out, 'w')
     file.write(' '.join(numbers))
     file.close()
 
@@ -70,8 +76,35 @@ def label_change_num(file_name):
 def read_num_file(file_name):
     # opens the file
     file = open(file_name, 'r')
+
+    # reads in the data and makes it a list of integers
     data = file.read()
-    print(data)
+    ls = [int(x) for x in data.split(' ')]
+
+    # converts it into a tensor
+    tf_ls = tf.constant(ls, dtype=tf.int64)
+
+    file.close()
+
+    return tf_ls
 
 
-label_change_num("/home/amri123/Desktop/Training Data/0000000.txt")
+def labels_files_conversion(dir_in, dir_out, n):
+    start_time = time.time()
+    # repeats n times
+    one_percent = n // 100
+    for counter in range(n):
+        # uses the label change num function with the directories with laeding 0 files
+        label_change_num(os.path.join(dir_in, str(counter).zfill(7) + ".txt"), os.path.join(dir_out, str(counter).zfill(7) + ".txt"))
+
+        if counter % one_percent == 0:
+                # prints an estimated time and percentage done message
+                if counter != 0:
+                    percent_done = counter // one_percent
+                    print(str(percent_done) + " percent done")
+                    time_elapsed = time.time() - start_time
+                    print("estimated " + str((time_elapsed / percent_done) * (100 - percent_done))[:7] + " seconds left", end='\n\n')
+
+    print(str(time.time() - start_time) + " seconds taken")
+
+# labels_files_conversion("/home/amri123/Desktop/Training Data/Labels", "/media/amri123/External SSD/Labels", 252702)
