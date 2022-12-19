@@ -96,4 +96,4 @@ def spectrogram_files_conversion(dir_in, dir_out, n):
     print(str(time.time() - start_time) + " seconds taken")
 
 
-spectrogram_files_conversion("/home/amri123/Desktop/Training Data/Data", "/media/amri123/External SSD/Spectrograms", 252702)
+# spectrogram_files_conversion("/home/amri123/Desktop/Training Data/Data", "/media/amri123/External SSD/Spectrograms", 252702)
