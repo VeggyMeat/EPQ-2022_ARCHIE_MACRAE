@@ -3,11 +3,6 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 
 import tensorflow as tf
-from tensorflow import keras
-import tensorflow_io as tfio
-import numpy as np
-import soundfile as sf
-import matplotlib.pyplot as plt
 import time
 
 labels_dir = "/home/amri123/Desktop/Training Data/Labels/"
@@ -42,8 +37,8 @@ def character_check():
 chars= "ABCDEFGHIJKLMNOPQRSTUVWXYZ' "
 
 # dictionary of character to number
-char_map = {chars[x]: x + 1 for x in range(len(chars))}
-inv_map = {x + 1: chars[x] for x in range(len(chars))}
+char_map = {chars[x]: x for x in range(len(chars))}
+inv_map = {x: chars[x] for x in range(len(chars))}
 
 
 def data_to_num(data):
@@ -75,18 +70,13 @@ def label_change_num(file_name, file_name_out):
 
 def read_num_file(file_name):
     # opens the file
-    file = open(file_name, 'r')
+    file = tf.io.read_file(file_name)
 
     # reads in the data and makes it a list of integers
-    data = file.read()
-    ls = [int(x) for x in data.split(' ')]
+    data = tf.strings.split(file, ' ')
+    data = tf.strings.to_number(data, out_type=tf.int32)
 
-    # converts it into a tensor
-    tf_ls = tf.constant(ls, dtype=tf.int64)
-
-    file.close()
-
-    return tf_ls
+    return data
 
 
 def labels_files_conversion(dir_in, dir_out, n):
