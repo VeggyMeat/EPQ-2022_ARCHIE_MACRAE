@@ -43,9 +43,9 @@ def model_creation(input_values, ouptput_values):
     model = layers.ReLU(name = "CNN_2_relu")(model)
 
     # third convolutional layer
-    model = layers.Conv2D(filters=64, kernel_size=[11, 21], strides=[1, 2], padding="same", use_bias=False, name="CNN_3")(model)
-    model = layers.BatchNormalization(name="CNN_3_bn")(model)
-    model = layers.ReLU(name = "CNN_3_relu")(model)
+    # model = layers.Conv2D(filters=64, kernel_size=[11, 21], strides=[1, 2], padding="same", use_bias=False, name="CNN_3")(model)
+    # model = layers.BatchNormalization(name="CNN_3_bn")(model)
+    # model = layers.ReLU(name = "CNN_3_relu")(model)
 
     # reshapes the volume to go into the RNN layers
     model = layers.Reshape((-1, model.shape[-2] * model.shape[-1]))(model)
@@ -64,14 +64,14 @@ def model_creation(input_values, ouptput_values):
     model = layers.Dense(units=1600, name="dense_1")(model)
     model = layers.ReLU(name="dense_1_relu")(model)
     model = layers.Dropout(rate=0.5)(model)
-    model = layers.Dense(units=1600, name="dense_2")(model)
-    model = layers.ReLU(name="dense_2_relu")(model)
-    model = layers.Dropout(rate=0.5)(model)
+    # model = layers.Dense(units=1600, name="dense_2")(model)
+    # model = layers.ReLU(name="dense_2_relu")(model)
+    # model = layers.Dropout(rate=0.5)(model)
 
     # output layer
-    model = layers.Dense(units=ouptput_values + 1, activation="softmax")(model)
+    output = layers.Dense(units=ouptput_values + 1, activation="softmax")(model)
 
     # classifying the final model
-    model = tf.keras.Model(spectrogram_in, model, name="DeepSpeech_2")
+    Model = tf.keras.Model(spectrogram_in, output, name="DeepSpeech_2")
 
-    return model
+    return Model

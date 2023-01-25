@@ -37,8 +37,11 @@ def character_check():
 chars= "ABCDEFGHIJKLMNOPQRSTUVWXYZ' "
 
 # dictionary of character to number
-char_map = {chars[x]: x for x in range(len(chars))}
-inv_map = {x: chars[x] for x in range(len(chars))}
+char_map = {chars[x]: x + 1 for x in range(len(chars))}
+char_map[''] = 0
+
+inv_map = {x + 1: chars[x] for x in range(len(chars))}
+inv_map[0] = ''
 
 
 def data_to_num(data):
