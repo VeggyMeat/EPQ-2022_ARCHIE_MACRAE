@@ -10,6 +10,8 @@ import numpy as np
 
 model = model_creation(193, len(Label_Handling.chars) + 1)
 
+# change to  stochastic gradient descent
+
 opt = keras.optimizers.Adam(learning_rate=1e-4)
 
 model.compile(optimizer=opt, loss=CTCLoss)
@@ -59,6 +61,9 @@ def decode_CTC(nums):
     if prev != blank:
         out.append(prev)
     return out
+
+
+# https://stackoverflow.com/questions/48118111/get-loss-values-for-each-training-instance-keras
 
 
 class SentenceInfo(keras.callbacks.Callback):
