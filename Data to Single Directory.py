@@ -11,9 +11,13 @@ import tensorflow as tf
 
 counter = 0
 
+# directories for data
+
 data_in = "/home/amri123/Desktop/Training Data/"
 data_to = "/home/amri123/Desktop/Training Data/Data/"
 labels_to = "/home/amri123/Desktop/Training Data/Labels/"
+
+# constants
 
 start_time = time.time()
 leading_zeros = 7
