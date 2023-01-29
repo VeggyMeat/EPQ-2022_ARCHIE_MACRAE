@@ -12,10 +12,15 @@ start_time = time.time()
 
 # creates the initial files for storing the losses the WER
 
+validation_loss_file = "/media/amri123/External SSD/validation_loss.txt"
 loss_file = "/media/amri123/External SSD/loss.txt"
 WER_file = "/media/amri123/External SSD/WER.txt"
 time_file = "/media/amri123/External SSD/time.txt"
 
+# creates the files to store the data and clears them
+
+file = open(validation_loss_file, 'w')
+file.close()
 file = open(loss_file, 'w')
 file.close()
 file = open(WER_file, 'w')
@@ -23,9 +28,13 @@ file.close()
 
 model = model_creation(193, len(Label_Handling.chars) + 1)
 
-# change to  stochastic gradient descent
+model.summary()
 
-opt = keras.optimizers.Adam(learning_rate=1e-4)
+# adam optimiser
+# opt = keras.optimizers.Adam()
+
+# stochastic gradient descent with momentum
+opt = keras.optimizers.SGD(learning_rate=1e-2, momentum=0.9)
 
 model.compile(optimizer=opt, loss=CTCLoss)
 
@@ -41,8 +50,8 @@ debug_dir = "/media/amri123/External SSD/Debug"
 
 # defines the number of files to train on
 
-files_train = 12
-files_validate = 12
+files_train = 12000
+files_validate = 60
 
 # sets up the file names for all the spectrograms and labels
 
@@ -97,9 +106,12 @@ class SentenceInfo(keras.callbacks.Callback):
         # decodes sample data from validation set and the model's prediction
         predictions = []
         targets = []
+        losses = []
         for batch in self.dataset:
             x, y = batch
             batch_predictions = model.predict(x)
+
+            losses.append(sum(CTCLoss(y, batch_predictions).numpy()) / batch_size)
 
             # goes through each prediction in the batch and decodes it into the characters out
             for item in batch_predictions:
@@ -128,8 +140,8 @@ class SentenceInfo(keras.callbacks.Callback):
         print("WER: " + str(error))
 
         for i in range(len(targets)):
-            print('\n', predictions[i])
-            print(targets[i], '\n')
+            print('\n target:', targets[i])
+            print('predictions: ' + predictions[i], '\n')
             file.write("\ntarget: " + targets[i] + '\n')
             file.write("predicted: " + predictions[i] + '\n\n')
 
@@ -144,6 +156,16 @@ class SentenceInfo(keras.callbacks.Callback):
         file = open(WER_file, 'a')
         file.write(str(error) + '\n')
         file.close()
+
+        # writes validation loss
+
+        validation_loss = (sum(losses) / len(losses))[0]
+
+        file = open(validation_loss_file, 'a')
+        file.write(str(validation_loss) + '\n')
+        file.close()
+
+        print("Validation Loss: " + str(validation_loss))
 
 
 history = model.fit(train_dataset, validation_data=validation_dataset, epochs=epochs, callbacks=[SentenceInfo(validation_dataset)])
