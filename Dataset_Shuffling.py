@@ -63,19 +63,19 @@ def data_shuffle_flac(label_dir, flac_dir, n):
         item = made.pop(random.randint(0, len(made) - 1))
 
         # renames .txt and .flac file to temporary files
-        os.rename(to_txt(label_dir, item), to_txt(label_dir, x + n))
-        os.rename(to_flac(flac_dir, item), to_flac(flac_dir, x + n))
+        os.rename(to_txt(label_dir, item), to_txt(label_dir, x + n + 1))
+        os.rename(to_flac(flac_dir, item), to_flac(flac_dir, x + n + 1))
 
         # renames old temp variables to new file names
         if x != 0:
-            os.rename(to_txt(label_dir, x + n - 1), to_txt(label_dir, item))
-            os.rename(to_flac(flac_dir, x + n - 1), to_flac(flac_dir, item))
+            os.rename(to_txt(label_dir, x + n), to_txt(label_dir, item))
+            os.rename(to_flac(flac_dir, x + n), to_flac(flac_dir, item))
         else:
             first = item
 
     # does the final conversion of the last temporary file
-    os.rename(to_txt(label_dir, x + n), to_txt(label_dir, first))
-    os.rename(to_flac(flac_dir, x + n), to_flac(flac_dir, first))
+    os.rename(to_txt(label_dir, x + n + 1), to_txt(label_dir, first))
+    os.rename(to_flac(flac_dir, x + n + 1), to_flac(flac_dir, first))
 
     print(time.time() - prev_time)
 

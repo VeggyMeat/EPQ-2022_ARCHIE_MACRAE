@@ -20,6 +20,7 @@ for gpu in gpus:
     # Visible devices must be set before GPUs have been initialized
     print(e)'''
 
+'''
 # 13000
 for x in range(10):
   name = '/media/amri123/External SSD/Labels/' + str(x).zfill(7) + '.txt'
@@ -33,4 +34,6 @@ for x in range(10):
   
   # file = open(name, 'w')
   # file.write(' '.join([str(num) for num in numbers]))
-  # file.close()
+  # file.close()'''
+
+print(Label_Handling.num_to_data(Label_Handling.read_num_file('/home/amri123/Documents/000000.txt').numpy()))

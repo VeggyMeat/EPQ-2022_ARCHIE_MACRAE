@@ -61,7 +61,7 @@ def model_creation(input_values, ouptput_values, dropout_freq=0.5):
             model = layers.Dropout(rate=dropout_freq)(model)
 
     # adds two fully connected dense layers
-    model = layers.Dense(units=1024, name="dense_1")(model)
+    model = layers.Dense(units=1600, name="dense_1")(model)
     model = layers.ReLU(name="dense_1_relu")(model)
     model = layers.Dropout(rate=dropout_freq)(model)
     # model = layers.Dense(units=1024, name="dense_2")(model)
