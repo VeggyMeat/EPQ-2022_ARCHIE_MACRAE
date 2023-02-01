@@ -7,8 +7,12 @@ import os
 from jiwer import wer
 import time
 import numpy as np
+import Dataset_Shuffling
 
 start_time = time.time()
+
+# shuffles the dataset files
+# Dataset_Shuffling.data_shuffle_flac('/media/amri123/External SSD/Labels', '/media/amri123/External SSD/Data', 252702)
 
 # creates the initial files for storing the losses the WER
 
@@ -26,15 +30,12 @@ file.close()
 file = open(WER_file, 'w')
 file.close()
 
-model = model_creation(193, len(Label_Handling.chars) + 1)
+model = model_creation(193, len(Label_Handling.chars) + 1, dropout_freq=0.5)
 
 model.summary()
 
 # adam optimiser
-# opt = keras.optimizers.Adam()
-
-# stochastic gradient descent with momentum
-opt = keras.optimizers.SGD(learning_rate=1e-2, momentum=0.9)
+opt = keras.optimizers.Adam(learning_rate=1e-4)
 
 model.compile(optimizer=opt, loss=CTCLoss)
 
@@ -173,7 +174,7 @@ history = model.fit(train_dataset, validation_data=validation_dataset, epochs=ep
 # outputs the time
 
 dif_time = time.time() - start_time
-
+               
 file = open(time_file, 'w')
 file.write(str(dif_time))
 file.close()

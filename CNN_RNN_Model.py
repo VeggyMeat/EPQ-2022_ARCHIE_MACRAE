@@ -25,7 +25,7 @@ def CTCLoss(y_true, y_pred):
     return loss
 
 
-def model_creation(input_values, ouptput_values):
+def model_creation(input_values, ouptput_values, dropout_freq=0.5):
     # the input layer
     spectrogram_in = layers.Input((None, input_values), name="input_layer")
     
@@ -58,15 +58,15 @@ def model_creation(input_values, ouptput_values):
 
         # adds a dropout layer for better training
         if x != 4:
-            model = layers.Dropout(rate=0.5)(model)
+            model = layers.Dropout(rate=dropout_freq)(model)
 
     # adds two fully connected dense layers
-    model = layers.Dense(units=1600, name="dense_1")(model)
+    model = layers.Dense(units=1024, name="dense_1")(model)
     model = layers.ReLU(name="dense_1_relu")(model)
-    model = layers.Dropout(rate=0.5)(model)
-    # model = layers.Dense(units=1600, name="dense_2")(model)
+    model = layers.Dropout(rate=dropout_freq)(model)
+    # model = layers.Dense(units=1024, name="dense_2")(model)
     # model = layers.ReLU(name="dense_2_relu")(model)
-    # model = layers.Dropout(rate=0.5)(model)
+    # model = layers.Dropout(rate=dropout_freq)(model)
 
     # output layer
     output = layers.Dense(units=ouptput_values + 1, activation="softmax")(model)
