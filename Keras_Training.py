@@ -13,6 +13,7 @@ start_time = time.time()
 
 # shuffles the dataset files
 # Dataset_Shuffling.data_shuffle_flac('/media/amri123/External SSD/Labels', '/media/amri123/External SSD/Data', 252702)
+Dataset_Shuffling.data_shuffle_flac('/media/amri123/External SSD/Labels2', '/media/amri123/External SSD/Data2', 104014)
 
 # creates the initial files for storing the losses the WER
 
@@ -35,19 +36,27 @@ model = model_creation(193, len(Label_Handling.chars) + 1, dropout_freq=0.5)
 model.summary()
 
 # adam optimiser
-opt = keras.optimizers.Adam(learning_rate=1e-4)
+# opt = keras.optimizers.Adam(learning_rate=1e-4)
+
+opt = keras.optimizers.Adamax(learning_rate=1e-4)
 
 model.compile(optimizer=opt, loss=CTCLoss)
 
 batch_size = 12
-total_files = 252702
+# total_files = 252702
+total_files = 104014
 epochs = 50
 
 # defines directories for the output files
 
-spectrogram_dir = "/media/amri123/External SSD/Data"
-labels_dir = "/media/amri123/External SSD/Labels"
+spectrogram_dir = "/media/amri123/External SSD/Data2"
+labels_dir = "/media/amri123/External SSD/Labels2"
 debug_dir = "/media/amri123/External SSD/Debug"
+
+# creates the debug directory if it does not already exist
+
+if not os.path.exists(debug_dir):
+    os.makedirs(debug_dir)
 
 # defines the number of files to train on
 

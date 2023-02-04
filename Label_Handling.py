@@ -100,4 +100,4 @@ def labels_files_conversion(dir_in, dir_out, n):
 
     print(str(time.time() - start_time) + " seconds taken")
 
-# labels_files_conversion("/home/amri123/Desktop/Training Data/Labels", "/media/amri123/External SSD/Labels", 252702)
+# labels_files_conversion("/home/amri123/Desktop/Training Data/Labels2", "/media/amri123/External SSD/Labels2", 104014)

@@ -14,8 +14,8 @@ counter = 0
 # directories for data
 
 data_in = "/home/amri123/Desktop/Training Data/"
-data_to = "/home/amri123/Desktop/Training Data/Data/"
-labels_to = "/home/amri123/Desktop/Training Data/Labels/"
+data_to = "/home/amri123/Desktop/Training Data/Data2/"
+labels_to = "/home/amri123/Desktop/Training Data/Labels2/"
 
 # constants
 
