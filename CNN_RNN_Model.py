@@ -52,7 +52,7 @@ def model_creation(input_values, ouptput_values, dropout_freq=0.5):
 
     # creates the reccurent layers
     for x in range(5):
-        reccurent = layers.GRU(units=512, activation="tanh", recurrent_activation="sigmoid", use_bias=True, return_sequences=True, reset_after=True, name="GRU_" + str(x + 1))
+        reccurent = layers.GRU(units=800, activation="tanh", recurrent_activation="sigmoid", use_bias=True, return_sequences=True, reset_after=True, name="GRU_" + str(x + 1))
 
         model = layers.Bidirectional(reccurent, merge_mode="concat", name="bidirectional_" + str(x + 1))(model)
 
@@ -64,7 +64,7 @@ def model_creation(input_values, ouptput_values, dropout_freq=0.5):
     model = layers.Dense(units=1600, name="dense_1")(model)
     model = layers.ReLU(name="dense_1_relu")(model)
     model = layers.Dropout(rate=dropout_freq)(model)
-    # model = layers.Dense(units=1024, name="dense_2")(model)
+    # model = layers.Dense(units=1600, name="dense_2")(model)
     # model = layers.ReLU(name="dense_2_relu")(model)
     # model = layers.Dropout(rate=dropout_freq)(model)
 

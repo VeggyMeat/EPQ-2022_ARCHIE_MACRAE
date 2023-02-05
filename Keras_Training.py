@@ -42,7 +42,7 @@ opt = keras.optimizers.Adamax(learning_rate=1e-4)
 
 model.compile(optimizer=opt, loss=CTCLoss)
 
-batch_size = 12
+batch_size = 10
 # total_files = 252702
 total_files = 104014
 epochs = 50
@@ -61,7 +61,7 @@ if not os.path.exists(debug_dir):
 # defines the number of files to train on
 
 files_train = 12000
-files_validate = 60
+files_validate = 600
 
 # sets up the file names for all the spectrograms and labels
 
